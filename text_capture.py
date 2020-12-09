@@ -8,6 +8,8 @@ if os.name == 'nt':
 
 def capture_text():
     if os.name == 'nt':
+        wnd = win32ui.GetForegroundWindow()
+        print(wnd.GetWindowText())
         copy_paste()
         return get_clipboard()
     else:

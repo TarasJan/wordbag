@@ -33,7 +33,7 @@ class Bag:
             pickle.dump(self, file)
 
     def dump_to_file(self, filename):
-        with open(filename, 'w') as file:
+        with open(filename, 'w', encoding='utf-8') as file:
             file.write(f"Bag {self.name}:\n") 
             file.writelines(self.elements)
 
