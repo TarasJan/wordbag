@@ -132,4 +132,4 @@ dmypy.json
 
 .vscode
 result.txt
-*.bag
+phrases.bag
