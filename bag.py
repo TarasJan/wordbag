@@ -8,7 +8,7 @@ class Bag:
             print(f"Unmarshalling from file: {filename}")
             return Bag.from_file(filename)
         else:
-            return Bag('Phrases')
+            return Bag(filename.split('.')[0])
 
     @classmethod
     def from_file(_cls, filename):

@@ -14,7 +14,7 @@ from mouse_handler import MouseHandler
 signal.signal(signal.SIGINT, lambda x, y: sys.exit(0))
 
 # setting log
-sys.stdout = open("wordbag.log", "w")
+#sys.stdout = open("wordbag.log", "w")
 
 def wordbag():
     print('Daemon scraper starting...')

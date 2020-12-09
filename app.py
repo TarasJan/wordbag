@@ -1,5 +1,6 @@
 import tkinter as tk
 
+from bag import Bag
 import text_capture
 from mouse_handler import MouseHandler
 
@@ -22,17 +23,12 @@ class App(tk.Tk):
         self.label.pack()
 
     def on_closing(self):
-        self.bag.dump_to_file('result.txt')
-        self.bag.marshall('phrases.bag')
         self.destroy()
 
     def handler_loop(self):
-        if not self._handler.listener.is_alive():
-            captured_text = text_capture.capture_text()
-            self.bag.elements.append(captured_text)
-            self.refresh_words()
-            self._handler.reset_listener()
+        self._bag = Bag.from_file_or_new(f"{self.bag.name}.bag")
+        self.refresh_words()
 
-        self.after(50, self.handler_loop)
+        self.after(500, self.handler_loop)
 
     

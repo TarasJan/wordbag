@@ -5,7 +5,6 @@ class MouseHandler:
     def __init__(self):
         self._listener = mouse_listener(self.on_click())
         self._click_buffer = 0
-        self.listener.start()
 
     @property
     def listener(self):
@@ -14,7 +13,6 @@ class MouseHandler:
     def reset_listener(self):
         self._click_buffer = 0
         self._listener = mouse_listener(self.on_click())
-        self.listener.start()
 
     def on_click(self):
         def on_klik(x, y, button, pressed):
