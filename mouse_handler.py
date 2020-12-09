@@ -15,6 +15,8 @@ class MouseHandler:
             log_click(x, y, button, pressed)
             if not pressed and button == mouse.Button.right:
                 return self.register_button_release()
+            elif not pressed and button == mouse.Button.middle:
+                raise InterruptedError
             else:
                 return True
         return on_klik
