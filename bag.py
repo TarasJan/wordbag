@@ -5,7 +5,7 @@ class Bag:
     @classmethod
     def from_file_or_new(cls, filename):
         if os.path.isfile(filename):
-            print(f"Unmarshalling from file: #{filename}")
+            print(f"Unmarshalling from file: {filename}")
             return Bag.from_file(filename)
         else:
             return Bag('Phrases')
@@ -36,3 +36,6 @@ class Bag:
         with open(filename, 'w') as file:
             file.write(f"Bag {self.name}:\n") 
             file.writelines(self.elements)
+
+    def __str__(self):
+        return f"Bag {self.name}: <\n" + "\n".join(self.elements) + "\n>"

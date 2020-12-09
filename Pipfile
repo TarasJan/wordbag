@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 pynput = "*"
 pywin32 = "*"
+pyinstaller = "*"
 
 [requires]
 python_version = "3.8"
