@@ -1,5 +1,6 @@
 import pickle
 import os.path
+import time
 
 class Bag:
     @classmethod
@@ -14,10 +15,13 @@ class Bag:
     def from_file(_cls, filename):
         with open(filename, 'rb') as file:
             instance = pickle.load(file)
+            instance.timestamp = time.ctime(os.path.getmtime(instance.filename))
         return instance
 
     def __init__(self, name):
         self._name = name
+        self.timestamp = 0
+        self.filename = f"{self.name}.bag"
         self._elements = set()
 
     @property
@@ -36,6 +40,12 @@ class Bag:
         with open(filename, 'w', encoding='utf-8') as file:
             file.write(f"Bag {self.name}:\n") 
             file.writelines(self.elements.__str__())
+
+    def file_changed(self):
+        try:
+            return self.timestamp != time.ctime(os.path.getmtime(self.filename))
+        except FileNotFoundError:
+            return True
 
     def __str__(self):
         return f"Bag {self.name}: <\n" + "\n".join(self.elements) + "\n>"

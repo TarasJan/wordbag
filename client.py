@@ -10,8 +10,8 @@ from bag import Bag
 # disabling KeyboardInterrupt
 signal.signal(signal.SIGINT, lambda x, y: sys.exit(0))
 
-# setting log
-sys.stdout = open("wordbag.log", "w")
+# # setting log
+# sys.stdout = open("wordbag.log", "w")
    
 def wordbag():
     print('Program starting')
