@@ -18,7 +18,7 @@ class Bag:
 
     def __init__(self, name):
         self._name = name
-        self._elements = []
+        self._elements = set()
 
     @property
     def name(self):
@@ -35,7 +35,7 @@ class Bag:
     def dump_to_file(self, filename):
         with open(filename, 'w', encoding='utf-8') as file:
             file.write(f"Bag {self.name}:\n") 
-            file.writelines(self.elements)
+            file.writelines(self.elements.__str__())
 
     def __str__(self):
         return f"Bag {self.name}: <\n" + "\n".join(self.elements) + "\n>"

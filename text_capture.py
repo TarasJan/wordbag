@@ -28,5 +28,6 @@ def copy_paste():
 def get_clipboard():
     win32clipboard.OpenClipboard()
     data = win32clipboard.GetClipboardData()
+    print(data)
     win32clipboard.CloseClipboard()
     return data
