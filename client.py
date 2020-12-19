@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import multiprocessing
 import signal
 import sys
 
@@ -14,12 +13,10 @@ signal.signal(signal.SIGINT, lambda x, y: sys.exit(0))
 # sys.stdout = open("wordbag.log", "w")
    
 def wordbag():
-    print('Program starting')
+    print('Wordbag starting')
     bag = Bag.from_file_or_new('phrases.bag')
     app = App(bag)
     app.mainloop()
 
 if __name__ == '__main__':
-     p = multiprocessing.Process(target=wordbag)
-     p.start()
-     p.join()
+    wordbag()

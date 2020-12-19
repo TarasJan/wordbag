@@ -6,10 +6,11 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-pynput = "*"
 pywin32 = "*"
-pyinstaller = "*"
 genanki = "*"
+keyboard = "*"
+mouse = "*"
+cx-freeze = "*"
 
 [requires]
 python_version = "3.8"
