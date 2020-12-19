@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import multiprocessing
 import signal
 import sys
 
@@ -20,6 +19,4 @@ def wordbag():
     app.mainloop()
 
 if __name__ == '__main__':
-     p = multiprocessing.Process(target=wordbag)
-     p.start()
-     p.join()
+    wordbag()

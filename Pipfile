@@ -7,10 +7,10 @@ verify_ssl = true
 
 [packages]
 pywin32 = "*"
-pyinstaller = "*"
 genanki = "*"
 keyboard = "*"
 mouse = "*"
+cx-freeze = "*"
 
 [requires]
 python_version = "3.8"
