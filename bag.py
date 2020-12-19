@@ -2,6 +2,9 @@ import pickle
 import os.path
 import time
 
+import genanki
+from anki import AnkiModel 
+
 class Bag:
     @classmethod
     def from_file_or_new(cls, filename):
@@ -32,14 +35,29 @@ class Bag:
     def elements(self):
         return self._elements
 
-    def marshall(self, filename):
-        with open(filename, 'wb') as file:
+    def marshall(self):
+        with open(self.filename, 'wb') as file:
             pickle.dump(self, file)
 
-    def dump_to_file(self, filename):
-        with open(filename, 'w', encoding='utf-8') as file:
+    def dump_to_file(self):
+        with open(f"{self.filename}.txt", 'w', encoding='utf-8') as file:
             file.write(f"Bag {self.name}:\n") 
             file.writelines(self.elements.__str__())
+
+    def dump_to_anki(self):
+        my_deck = genanki.Deck(
+        2059400110,
+        self.name)
+        for element in self.elements:
+            my_deck.add_note(
+                genanki.Note(
+                model=AnkiModel,
+                fields=[element.front, element.back]
+                )
+            )
+
+        genanki.Package(my_deck).write_to_file(f"{self.name}.apkg")
+
 
     def file_changed(self):
         try:

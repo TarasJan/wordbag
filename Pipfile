@@ -9,6 +9,7 @@ verify_ssl = true
 pynput = "*"
 pywin32 = "*"
 pyinstaller = "*"
+genanki = "*"
 
 [requires]
 python_version = "3.8"

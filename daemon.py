@@ -5,8 +5,9 @@ import multiprocessing
 import signal
 import sys
 
-from anki_card import AnkiCard
+from anki import AnkiCard
 
+import client
 import text_capture
 from bag import Bag
 from mouse_handler import MouseHandler
@@ -28,8 +29,8 @@ def wordbag():
                 listener.join()
                 new_card = anki_card_from_capture()
                 bag.elements.add(new_card)
-                bag.dump_to_file('result.txt')
-                bag.marshall('phrases.bag')
+                bag.dump_to_file()
+                bag.marshall()
         except InterruptedError as _:
             exit_signal = True
     print('Daemon scraper shutting down...')
@@ -39,6 +40,11 @@ def anki_card_from_capture():
     return AnkiCard(front=captured_text, back='')
 
 if __name__ == '__main__':
-     p = multiprocessing.Process(target=wordbag)
-     p.start()
-     p.join()
+     daemon_process = multiprocessing.Process(target=wordbag)
+     client_process = multiprocessing.Process(target=client.wordbag)
+
+     daemon_process.start()
+     client_process.start()
+     client_process.join()
+     if daemon_process.is_alive():
+        daemon_process.terminate()

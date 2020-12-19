@@ -1,7 +1,7 @@
 import tkinter as tk
 
 
-from anki_card import AnkiCard
+from anki import AnkiCard
 from bag import Bag
 import text_capture
 from mouse_handler import MouseHandler
@@ -51,7 +51,8 @@ class App(tk.Tk):
             back = self.entries[i].get()
             card = AnkiCard(front=front, back=back)
             self.bag.elements.add(card)
-        self.bag.marshall(self.bag.filename)
+        self.bag.marshall()
+        self.bag.dump_to_anki()
 
 
     def on_closing(self):
