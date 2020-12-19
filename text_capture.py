@@ -8,8 +8,8 @@ if os.name == 'nt':
 
 def capture_text():
     if os.name == 'nt':
-        # wnd = win32ui.GetForegroundWindow()
-        # print(wnd.GetWindowText())
+        wnd = win32ui.GetForegroundWindow()
+        print(wnd.GetWindowText())
         copy_paste()
         return get_clipboard()
     else:
@@ -28,5 +28,6 @@ def copy_paste():
 def get_clipboard():
     win32clipboard.OpenClipboard()
     data = win32clipboard.GetClipboardData()
+    print(data)
     win32clipboard.CloseClipboard()
     return data

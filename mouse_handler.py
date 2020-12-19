@@ -1,6 +1,8 @@
 import threading
 from pynput import mouse
 
+CLICK_LIMIT = 4
+
 class MouseHandler:
     def __init__(self):
         self._listener = mouse_listener(self.on_click())
@@ -9,6 +11,10 @@ class MouseHandler:
     @property
     def listener(self):
         return self._listener
+
+    def reset_listener(self):
+        self._click_buffer = 0
+        self._listener = mouse_listener(self.on_click())
 
     def on_click(self):
         def on_klik(x, y, button, pressed):
@@ -25,7 +31,7 @@ class MouseHandler:
         self._click_buffer +=1
         self.schedule_buffer_clearing()
         print(f"Release count {self._click_buffer}")
-        if self._click_buffer >= 3:  
+        if self._click_buffer >= CLICK_LIMIT:  
             self._buffer_timer.cancel()  
             return False
         else:

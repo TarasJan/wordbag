@@ -132,4 +132,9 @@ dmypy.json
 
 .vscode
 result.txt
-phrases.bag
+*.bag
+*.apkg
+build_config.json
+file_version_info.txt
+phrases.bag.txt
+output/
