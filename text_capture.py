@@ -1,6 +1,6 @@
 import os
 import time
-from pynput.keyboard import Key, Controller
+import keyboard
 
 if os.name == 'nt':
     import win32ui
@@ -16,14 +16,10 @@ def capture_text():
         print('Unsupported OS')
 
 def copy_paste():
-    keyboard = Controller()
-
-    keyboard.press(Key.ctrl)
-    keyboard.press('c')
+    keyboard.press('ctrl+c')
     time.sleep(0.1)
-    keyboard.release('c')
     print('OK')
-    keyboard.release(Key.ctrl)
+    keyboard.release('ctrl+c')
 
 def get_clipboard():
     win32clipboard.OpenClipboard()

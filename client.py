@@ -14,7 +14,7 @@ signal.signal(signal.SIGINT, lambda x, y: sys.exit(0))
 # sys.stdout = open("wordbag.log", "w")
    
 def wordbag():
-    print('Program starting')
+    print('Wordbag starting')
     bag = Bag.from_file_or_new('phrases.bag')
     app = App(bag)
     app.mainloop()

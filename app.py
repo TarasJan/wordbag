@@ -13,7 +13,7 @@ class App(tk.Tk):
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=2)
         self._bag = bag
-        self._handler = MouseHandler()
+        self._handler = MouseHandler(self.insert_anki_card)
         self.labels = []
         self.entries = []
         self.button = tk.Button(self, text='Save')
@@ -54,7 +54,6 @@ class App(tk.Tk):
         self.bag.marshall()
         self.bag.dump_to_anki()
 
-
     def on_closing(self):
         self.destroy()
 
@@ -65,4 +64,15 @@ class App(tk.Tk):
 
         self.after(500, self.handler_loop)
 
+    def anki_card_from_capture(self):
+        captured_text = text_capture.capture_text()
+        return AnkiCard(front=captured_text, back='')
+
+    def insert_anki_card(self):
+        new_card = self.anki_card_from_capture()
+        print(new_card.front)
+        self.bag.elements.add(new_card)
+        self.bag.dump_to_file()
+        self.bag.marshall()
     
+   
