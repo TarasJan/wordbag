@@ -1,14 +1,18 @@
 import pickle
 import os.path
 import time
+from tkinter.filedialog import askopenfilename
 
 import genanki
 from anki import AnkiModel 
 
 class Bag:
     @classmethod
-    def from_file_or_new(cls, filename):
-        if os.path.isfile(filename):
+    def from_file_or_new(cls, filename=None):
+        if filename is None:
+            selected_filename = askopenfilename()
+            return Bag.from_file_or_new(selected_filename)
+        elif os.path.isfile(filename):
             print(f"Unmarshalling from file: {filename}")
             return Bag.from_file(filename)
         else:

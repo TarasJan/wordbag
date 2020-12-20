@@ -1,6 +1,5 @@
 import tkinter as tk
-from tkinter.ttk import *
-
+from tkinter.messagebox import showinfo
 
 from anki import AnkiCard
 from bag import Bag
@@ -14,6 +13,7 @@ class App(tk.Tk):
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
+        self.initialize_menu()
         self._bag = bag
         self._handler = MouseHandler(self.insert_anki_card)
         self.labels = []
@@ -26,6 +26,17 @@ class App(tk.Tk):
     @property
     def bag(self):
         return self._bag
+
+    def initialize_menu(self):
+        menu = tk.Menu(self)
+        self.config(menu=menu)
+
+        fileMenu = tk.Menu(menu)
+        fileMenu.add_command(label="Open", command=self.load_bag)
+        fileMenu.add_command(label="Exit", command=self.on_closing)
+        menu.add_cascade(label="File", menu=fileMenu)
+
+        menu.add_command(label="About", command=self.show_info_box)
 
     def refresh_words(self):
         for label in self.labels:
@@ -61,6 +72,12 @@ class App(tk.Tk):
     def on_closing(self):
         self.destroy()
 
+    def show_info_box(self):
+        showinfo(
+            title='Wordbag 0.1v', 
+            message="Wordbag is a free Anki deck builder released under MIT license for sentence mining.\n Mine words from websites, documents and movie titles.\n 2020 @ jantaras.com"
+        )
+
     def handler_loop(self):
         if self.bag.file_changed():
             self._bag = Bag.from_file_or_new(f"{self.bag.name}.bag")
@@ -84,4 +101,8 @@ class App(tk.Tk):
             self.bag.elements.remove(card)
             self.refresh_words()
         return on_click
+
+    def load_bag(self):
+        self._bag = Bag.from_file_or_new()
+        self.refresh_words()
    
