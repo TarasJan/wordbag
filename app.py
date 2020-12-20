@@ -9,7 +9,7 @@ from mouse_handler import MouseHandler
 class App(tk.Tk):
     def __init__(self, bag):
         tk.Tk.__init__(self)
-        self.title('Wordbag v0.1')
+        self.title('Wordbag v0.2')
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
@@ -74,8 +74,8 @@ class App(tk.Tk):
 
     def show_info_box(self):
         showinfo(
-            title='Wordbag 0.1v', 
-            message="Wordbag is a free Anki deck builder released under MIT license for sentence mining.\n Mine words from websites, documents and movie titles.\n 2020 @ jantaras.com"
+            title='Wordbag 0.2v', 
+            message="Wordbag is a free Anki deck builder released under MIT license for sentence mining.\n Mine words from websites, documents and movie subtitles.\n 2020 @ jantaras.com"
         )
 
     def handler_loop(self):
