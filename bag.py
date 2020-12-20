@@ -22,6 +22,7 @@ class Bag:
     def from_file(_cls, filename):
         with open(filename, 'rb') as file:
             instance = pickle.load(file)
+            instance.filename = filename
             instance.timestamp = time.ctime(os.path.getmtime(instance.filename))
         return instance
 

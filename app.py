@@ -80,7 +80,7 @@ class App(tk.Tk):
 
     def handler_loop(self):
         if self.bag.file_changed():
-            self._bag = Bag.from_file_or_new(f"{self.bag.name}.bag")
+            self._bag = Bag.from_file_or_new(self.bag.filename)
             self.refresh_words()
 
         self.after(500, self.handler_loop)
