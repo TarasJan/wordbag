@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter.ttk import *
 
 
 from anki import AnkiCard
@@ -11,7 +12,8 @@ class App(tk.Tk):
         tk.Tk.__init__(self)
         self.title('Wordbag v0.1')
         self.columnconfigure(0, weight=1)
-        self.columnconfigure(1, weight=2)
+        self.columnconfigure(1, weight=1)
+        self.columnconfigure(2, weight=1)
         self._bag = bag
         self._handler = MouseHandler(self.insert_anki_card)
         self.labels = []
@@ -34,15 +36,17 @@ class App(tk.Tk):
         self.labels = []
         self.entries = []
         for i, card in enumerate(self.bag.elements):
+            remove_button = tk.Button(self, text='x', command=self.on_remove_click(card))
+            remove_button.grid(column=0, row=i)
             label = tk.Label(self, text=card.front, relief=tk.RIDGE, width = 20)
-            label.grid(column=0, row=i)
+            label.grid(column=1, row=i)
             entry = tk.Entry(self, width = 20, relief=tk.RIDGE)
             entry.insert(0, card.back)
-            entry.grid(column=1, row=i)
+            entry.grid(column=2, row=i)
             self.labels.append(label)
             self.entries.append(entry)
         self.button = tk.Button(self, text='Save', width = 40, command=self.persist_bag)
-        self.button.grid(row=len(self.bag.elements), columnspan=2)
+        self.button.grid(row=len(self.bag.elements), columnspan=3)
 
     def persist_bag(self):
         self.bag.elements.clear()
@@ -74,5 +78,10 @@ class App(tk.Tk):
         self.bag.elements.add(new_card)
         self.bag.dump_to_file()
         self.bag.marshall()
-    
+
+    def on_remove_click(self, card):
+        def on_click():
+            self.bag.elements.remove(card)
+            self.refresh_words()
+        return on_click
    
