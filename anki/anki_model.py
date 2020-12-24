@@ -10,7 +10,7 @@ AnkiModel = genanki.Model(
   templates=[
     {
       'name': 'Card',
-      'qfmt': '{{Question}}',
-      'afmt': '{{FrontSide}}<hr id="answer">{{Answer}}',
+      'qfmt': '<p style="text-align:center;font-size:large;"><b>{{Question}}</b>',
+      'afmt': '<p style="text-align:center;font-size:large;"><b>{{Question}}</b><hr id="answer"><p style="text-align:center;font-size:large;"><b>{{Answer}}</b></p>',
     },
   ])

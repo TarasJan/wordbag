@@ -12,7 +12,7 @@ if sys.platform == "win32":
 
 setup(
     name = "wordbag",
-    version = "0.2",
+    version = "0.2.1",
     description = "Wordbag - sentence mining tool for desktop use",
     options = {"build_exe": build_exe_options},
     executables = [Executable("client.py", base = base)])

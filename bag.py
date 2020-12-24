@@ -61,7 +61,7 @@ class Bag:
                 )
             )
 
-        genanki.Package(my_deck).write_to_file(f"{self.name}.apkg")
+        genanki.Package(my_deck).write_to_file(f"{self.filename}.apkg")
 
 
     def file_changed(self):
