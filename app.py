@@ -4,7 +4,7 @@ from tkinter.messagebox import showinfo
 from anki import AnkiCard
 from bag import Bag
 import text_capture
-from mouse_handler import MouseHandler
+import keyboard
 
 class App(tk.Tk):
     def __init__(self, bag):
@@ -15,13 +15,14 @@ class App(tk.Tk):
         self.columnconfigure(2, weight=1)
         self.initialize_menu()
         self._bag = bag
-        self._handler = MouseHandler(self.insert_anki_card)
         self.labels = []
         self.entries = []
+        self.remove_buttons = []
         self.button = tk.Button(self, text='Save')
         self.refresh_words()
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.after(50, self.handler_loop)
+        keyboard.add_hotkey('ctrl+c', self.insert_anki_card)
 
     @property
     def bag(self):
@@ -39,13 +40,7 @@ class App(tk.Tk):
         menu.add_command(label="About", command=self.show_info_box)
 
     def refresh_words(self):
-        for label in self.labels:
-            label.pack_forget()
-        for entry in self.entries:
-            entry.pack_forget()
-        self.button.pack_forget()
-        self.labels = []
-        self.entries = []
+        self.destroy_view_elements()
         for i, card in enumerate(self.bag.elements):
             remove_button = tk.Button(self, text='x', command=self.on_remove_click(card))
             remove_button.grid(column=0, row=i)
@@ -56,6 +51,7 @@ class App(tk.Tk):
             entry.grid(column=2, row=i)
             self.labels.append(label)
             self.entries.append(entry)
+            self.remove_buttons.append(remove_button)
         self.button = tk.Button(self, text='Save', width = 40, command=self.persist_bag)
         self.button.grid(row=len(self.bag.elements), columnspan=3)
 
@@ -74,7 +70,7 @@ class App(tk.Tk):
 
     def show_info_box(self):
         showinfo(
-            title='Wordbag 0.2v', 
+            title='Wordbag 0.2.1v', 
             message="Wordbag is a free Anki deck builder released under MIT license for sentence mining.\n Mine words from websites, documents and movie subtitles.\n 2020 @ jantaras.com"
         )
 
@@ -105,4 +101,16 @@ class App(tk.Tk):
     def load_bag(self):
         self._bag = Bag.from_file_or_new()
         self.refresh_words()
+
+    def destroy_view_elements(self):
+        for label in self.labels:
+            label.destroy()
+        for entry in self.entries:
+            entry.destroy()
+        for button in self.remove_buttons:
+            button.destroy()
+        self.button.destroy()
+        self.labels = []
+        self.entries = []
+        self.remove_buttons = []
    
